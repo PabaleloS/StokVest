@@ -1,0 +1,35 @@
+<!-- app/views/contributions/show.html.erb -->
+
+<div class="bg-blue-900 min-h-screen p-4">
+  <h1 class="text-white text-2xl font-bold mb-4">StokVest</h1>
+
+  <div class="bg-white rounded-lg p-4 mb-4">
+    <h2 class="text-xl font-semibold mb-2">Payment Confirmation</h2>
+    <p class="text-green-600">Your payment was successful</p>
+  </div>
+
+  <div class="bg-white rounded-lg p-4">
+    <h3 class="text-lg font-semibold mb-2">Transaction Details:</h3>
+    <p class="mb-1"><span class="text-blue-500">Transaction Number:</span> <%= @contribution.transaction_number %></p>
+    <p class="mb-1"><span class="text-blue-500">Amount:</span> R <%= number_with_precision(@contribution.contribution_amount, precision: 2) %></p>
+    <p class="mb-1"><span class="text-blue-500">Date of Transaction:</span> <%= @contribution.created_at.strftime('%d/%m/%Y') %></p>
+    <p><span class="text-blue-500">Payment Made To:</span> <%= @stokvel.name %></p>
+  </div>
+</div>
+
+<nav class="fixed bottom-0 w-full bg-white">
+  <div class="flex justify-around py-2">
+    <%= link_to root_path, class: "text-blue-500" do %>
+      <i class="fas fa-home"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-wallet"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-users"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-comment"></i>
+    <% end %>
+  </div>
+</nav>

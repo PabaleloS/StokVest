@@ -1,0 +1,23 @@
+<div class="fixed-bottom">
+  <div class="font-links">
+    <% if defined?(@stokvel) && @stokvel.present? && @stokvel.id.present? %>
+      <% if current_page?(stokvel_path(@stokvel)) %>
+        <%= link_to root_path, class: "link" do %>
+          <i class="fa-solid fa-house-user fa-lg"></i>
+        <% end %>
+      <% else %>
+        <%= link_to stokvel_path(@stokvel), class: "link" do %>
+          <i class="fa-solid fa-house-user fa-lg"></i>
+        <% end %>
+      <% end %>
+
+      <%= link_to stokvel_members_path(@stokvel), class: "link" do %>
+        <i class="fa-solid fa-list fa-lg"></i>
+      <% end %>
+    <% else %>
+      <%= link_to root_path, class: "link" do %>
+        <i class="fa-solid fa-house-user fa-lg"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

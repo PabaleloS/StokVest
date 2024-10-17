@@ -1,0 +1,97 @@
+<head>
+
+<style>
+.parent_containner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 800px;
+}
+
+.member_card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member_details {
+  display: flex;
+  align-items: center;
+}
+
+.members {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  
+}
+
+.avatar {
+  width: 44px;
+  height: 53px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.member_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contribution_info {
+  margin-top: 10px;
+}
+
+.contribution_amount {
+  font-weight: bold;
+  color: #337ab7;
+}
+</style>
+</head>
+<body>
+
+<div class="parent_containner">
+<div class="container">
+<br>
+<h4>Contribution of <%= @stokvel.name %></h4>
+<br>
+<% @members.each do |member| %>
+  <!--<div id="user_list_card">-->
+  <div id="members_body">
+    <div class="member_details">
+      <%# if member.user.photo.attached? %>
+        <%#= cl_image_tag member.user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+      <%# else %>
+        <%#= image_tag "placeholder.png", class: "avatar" %>
+      <%# end %>
+      <div id="members">
+        <h5><%= member.user.first_name %></h5>
+        <div class="contribution_info">
+          <% if @last_contribution[member.id] %>
+            <p>Last Contribution Date: <%= @last_contribution[member.id][:date] %></p>
+            <div class="contribution_amount">
+              <p>Last Contribution Amount: <%= @last_deposits[member.id][:contribution_amount] %></p>
+            </div>
+          <% else %>
+            <p>No Contributions yet.</p>
+          <% end %>
+        </div>
+</div>
+</div>
+</div>
+<% end %>
+</div>
+</div>
+</body>

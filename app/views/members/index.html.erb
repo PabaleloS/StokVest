@@ -1,0 +1,33 @@
+<h4>Contributions of <%= @stokvel.name %></h4>
+      </div>
+        <% @members.each do |member| %>
+          <div id="user_list_card">
+            <div id="members_body">
+            <div class="member_details">
+              <% if member.user.photo.attached? %>
+                <%= cl_image_tag member.user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+              <% else %>
+                <%= image_tag "placeholder.png", class: "avatar" %>
+              <% end %>
+              <div id="members_user_text">
+              <h5><%= member.user.first_name %></h5>
+              <div class="deposit-info">
+                <% if @last_deposits[member.id] %>
+                  <p>Last Deposit Date: <%= @last_deposits[member.id][:date] %></p>
+                  <div class="deposit-amount">
+                  <p>Last Deposit Amount: <%= @last_deposits[member.id][:agree_amount] %></p>
+                  </div>
+                <% else %>
+                  <p>No deposits yet.</p>
+                <% end %>
+              </div>
+            </div>
+            </div>
+
+            </div>
+            <br>
+          </div>
+        <% end %>
+        <br>
+        <div style="text-align: center;">
+        <br>

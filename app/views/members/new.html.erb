@@ -1,0 +1,36 @@
+<div class="container">
+  <div id="page_main">
+    <div id="new_stokve_header">
+      <a href="#" onclick="history.back(); return false;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAZ0lEQVR4nO2WMQqAQAwE5xMR/f9LrETRxit8jsdJbKwsNIK306UaWJYlIMR9GmABeoKlCdiBMUpqwOrSDWglfRLF+ypWTXsLs0uTjwW/F9sl6k7yCEyxo8J99PpMkeJTXhZuOC5RPRnBEDtxjsnsowAAAABJRU5ErkJggg==">
+      </a>
+      <div id="menu_icon">
+        <img width="24" height="24" src="https://img.icons8.com/android/24/menu.png" alt="menu"/>
+      </div>
+    </div>
+    <br>
+    <div class='add-members-header'>
+      <h4>Add members to </h4>
+      <h3><strong><%= @stokvel.name %></strong></h3>
+    </div>
+    <div data-controller="search-users " id="search_users">
+      <%= form_with url: stokvel_users_path(@stokvel), method: :get, html: {class: "mb-2", data: {search_users_target: "form"}} do |f| %>
+        <%= f.text_field :query,
+                          class: "form-control search-bar",
+                          placeholder: "Search for a user...",
+                          value: params[:query],
+                          data: {
+                            search_users_target: "input",
+                            action: "keyup->search-users#update"
+                          } %>
+      <% end %>
+      <%= render "users_list", users: @users_not_in_stokvel %>
+    </div>
+  </div>
+  <!--  <script>
+    document.getElementById("back_arrow").addEventListener("click", function(event) {
+    event.preventDefault();
+    window.location.href = "../";
+    });
+  </script>-->
+</div>

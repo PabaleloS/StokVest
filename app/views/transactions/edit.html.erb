@@ -1,0 +1,5 @@
+<h1>Edit Transaction</h1>
+
+<%= render 'form', transaction: @transaction %>
+
+<%= link_to 'Back', member_transaction_path(@transaction.member, @transaction) %>

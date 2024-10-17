@@ -1,0 +1,28 @@
+<%#= form_with(model: @contribution, url: stokvel_contributions_path(@stokvel), id: 'paymentForm', data: @current_user.to_json) do |form| %>
+<!--  <h1 style="text-align: center;"> Contribute to <%#= @stokvel.name %></h1>-->
+  <%# hidden_fields = {
+            email: current_user.email,
+          } %>
+  <%#= form.hidden_field :user_info, value: hidden_fields.to_json %>
+<!--  <div class="form-group" style="text-align: center;">-->
+    <%#= form.hidden_field :contribution_amount_input, value: @stokvel.contribution_amount, id: 'contribution_amount_input' %>
+    <%#= form.label :contribution_amount, "Stokvel Contribution Amount" %>
+<!--    <p style="font-size: 24px;"> ZAR <%#= @stokvel.contribution_amount %></p>
+  </div>
+  <div style="text-align: center; margin-top:20px;">
+    <%#= form.submit "Make Contribution", class: "track-button", id: "make_contribution_button", onclick: "hideForm()" %>-->
+<!--  </div>-->
+<%# end %>
+<%#= form_with(model: @contribution, url: stokvel_contributions_path(@stokvel), id: 'confirmationForm', class: 'hidden-form') do |form| %>
+  <%#= form.hidden_field :authenticity_token, value: form_authenticity_token %>
+<!--  <h1 style="text-align: center;"> You initiated the Payment of <br>
+    <b>ZAR <%#= number_with_precision(@stokvel.contribution_amount, precision: 2) %> </b> </h1>
+  <div class="form-group" style="text-align: center;">
+    <%#= form.hidden_field :contribution_amount, value: @stokvel.contribution_amount, id: 'contribution_amount_input' %>-->
+<!--    <p> Via Paystack </p>
+  </div>
+  <div style="text-align: center; margin-top:20px;">
+    <%#= form.submit "Confirm", class: "track-button btn btn-primary btn-blue", id: "confirm_contribution_button" %>-->
+<!--  </div>-->
+<%# end %>
+<!---->

@@ -1,10 +1,24 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users
+  # devise_for :users
+  root to: "stokvels#index"
+  get "up" => "rails/health#show", as: :rails_health_check # health check
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  post "stokvel/:id/payout", to: "stokvel#payout", as: :payout
+  post "stokvel/:id/create-members", to: "members#create_members", as: :create_members
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  resources :stokvels, except: [:edit, :destroy, :update] do
+    # resources :messages, only: %i[index create]
+    resources :transactions, only: %i[new create show]
+    resources :members, only: %i[index new create]
+    resources :users, only: %i[index]
+    resources :contributions, only: [:index, :show, :new, :create]
+    resources :payouts, only: [:index, :show, :new, :create]
+  end
+  resources :members, only: %i[update]
+post "stokvels/:id/accept_invite", to: "stokvels#accept_invite", as: :accept_invite
+post "stokvels/:id/decline_invite", to: "members#declined", as: :decline_invite
+
+# post '/paystack/callback', to: 'paystack#callback'
+# post '/paystack/webhook', to: 'paystack#webhook'
 end

@@ -1,0 +1,166 @@
+<div class="container">
+  <br>
+  <div id="page_main">
+    <header class="header">
+    <div class="logo">StokVest</div>
+  </header>
+
+  <div class="user-info">
+    <%#= image_tag "default-avatar.png", class: "avatar" %>
+    <!--<h2><%#= current_user.first_name %></h2>-->
+  </div>
+
+  <div class="greeting">
+    <% t = Time.now %>
+    <% if t.hour < 12 %>
+      <h4>Good morning <%= current_user.first_name %></h4>
+    <% elsif t.hour >= 12 && t.hour <= 18 %>
+      <h4>Good afternoon <%= current_user.first_name %></h4>
+    <% else %>
+      <h4>Good evening <%= current_user.first_name %></h4>
+    <% end %>
+  </div>
+
+  <div class="balance-card">
+    <div class="balance-header">
+      <span>Balance</span>
+      <!--<button class="toggle-balance">👁️</button>-->
+    </div>
+    <div class="balance-amount">R XX.XX</div>
+  </div>
+
+  <div class="create-group-card">
+    <h3>Create new StokVest group</h3>
+    <%= link_to "Create Group", new_stokvel_path, class: "btn-create" %>
+  </div>
+
+  <div class="your-groups">
+    <h3>Your Groups</h3>
+    <div class="group-card">
+      <h4>Building Tomorrow</h4>
+      <%= link_to "View Group", stokvel_path(@stokvel), class: "btn-view" %>
+    </div>
+  </div>
+
+  <!--<div class="pending-invitations">
+    <h3>Your Pending invitations</h3>
+    <div class="invitation-card">
+      <h4>Guys Trip</h4>
+      <p>Has sent you an invite</p>
+      <%#= link_to "Accept Invite", accept_invite_path, class: "btn-accept" %>-->
+<!--    </div>
+  </div>-->
+</div>
+
+<nav class="bottom-nav">
+  <%= link_to root_path, class: "nav-item active" do %>
+    <i class="fas fa-home"></i>
+  <% end %>
+  <%= link_to "#", class: "nav-item" do %>
+    <i class="fas fa-wallet"></i>
+  <% end %>
+  <%= link_to "#", class: "nav-item" do %>
+    <i class="fas fa-users"></i>
+  <% end %>
+  <%= link_to "#", class: "nav-item" do %>
+    <i class="fas fa-comment"></i>
+  <% end %>
+</nav>
+
+<style>
+  .dashboard {
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #0c2650;
+    color: white;
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .greeting {
+    margin-bottom: 20px;
+  }
+
+  .balance-card, .create-group-card, .group-card, .invitation-card {
+    background-color: white;
+    color: #0c2650;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .balance-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .toggle-balance {
+    background: none;
+    border: none;
+    font-size: 20px;
+  }
+
+  .balance-amount {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .btn-create, .btn-view, .btn-accept {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0c2650;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+
+  .nav-item {
+    color: #0c2650;
+    text-decoration: none;
+  }
+
+  .nav-item.active {
+    color: #3498db;
+  }
+</style>
+    <%= render partial: 'stokvels/index_card' %>
+  </div>
+</div>

@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>StokVest</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Stokvel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!--<link rel="manifest" href="<%#= asset_path 'manifest.json' %>">-->
+    <%#= render 'shared/ios_pwa_links' %>
+    <%#= javascript_include_tag 'paystack' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-  </head>
+    <%#= javascript_include_tag 'stokvel_show' %>
+    <%#= javascript_include_tag 'page_reload' %>
+    <%#= javascript_include_tag 'deposit' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <body>
-    <%= yield %>
+
+    <%#= favicon_link_tag "favicon.ico" %>
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div class="d-flex flex-column min-vh-100">
+      <article class="flex-grow-1">
+        <%= render "shared/flashes" %>
+        <%= yield %>
+      </article>
+      <br>
+      <br>
+      <% if @stokvel.present? && !(controller_name == 'messages' && action_name == 'index') %>
+        <%= render "shared/navbar", class: "row" %>
+      <% end %>
+      <%# if @stokvel.present? %>
+      <%#= render "shared/navbar", class: "row" %>
+      <%# end %>
+    </div>
+    <!--to make the alert disappear after some time-->
+
+  <!--  <script src="https://js.paystack.co/v1/inline.js"></script>-->
   </body>
 </html>

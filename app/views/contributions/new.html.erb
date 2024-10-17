@@ -1,0 +1,45 @@
+
+<div class="bg-blue-900 min-h-screen p-4">
+  <h1 class="text-white text-2xl font-bold mb-4">StokVest</h1>
+
+  <div class="bg-white rounded-lg p-4">
+    <h2 class="text-xl font-semibold mb-2"><%= @stokvel.name %></h2>
+    <!--<p class="text-gray-600 mb-4"><%#= @stokvel.description %></p>-->
+
+    <%= form_with(model: @contribution, url: stokvel_contributions_path(@stokvel), local: true) do |form| %>
+  <h3 class="text-lg font-semibold mb-2">Contribution Amount</h3>
+  <div class="bg-gray-100 p-2 rounded mb-4">
+    <p class="text-xl font-bold">R <%= number_with_precision(@stokvel.contribution_amount, precision: 2) %></p>
+  </div>
+  <%= form.hidden_field :contribution_amount, value: @stokvel.contribution_amount %>
+  <%= form.submit "Confirm", class: "w-full bg-blue-900 text-white py-2 rounded-lg" %>
+<% end %>
+  </div>
+
+  <div class="mt-4 bg-white rounded-lg p-4">
+    <div class="flex items-center">
+      <%#= image_tag 'default_avatar.png', class: "w-10 h-10 rounded-full mr-2" %>
+      <div>
+        <p class="font-semibold"><%= current_user.first_name %></p>
+        <p class="text-gray-600 text-sm"><%= Date.today.strftime('%d/%m/%Y') %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="fixed bottom-0 w-full bg-white">
+  <div class="flex justify-around py-2">
+    <%= link_to root_path, class: "text-blue-500" do %>
+      <i class="fas fa-home"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-wallet"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-users"></i>
+    <% end %>
+    <%= link_to "#", class: "text-gray-500" do %>
+      <i class="fas fa-comment"></i>
+    <% end %>
+  </div>
+</nav>

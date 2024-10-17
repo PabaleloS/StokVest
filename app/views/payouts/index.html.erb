@@ -1,0 +1,33 @@
+<div class="parent_container">
+  <div class="container">
+    <div id="payout-header">
+    <% if @stokvel %>
+  <h4>Payouts for <%= @stokvel.name %></h4>
+<% end %>
+
+    </div>
+    <% @members.each do |member| %>
+      <div id="members_body">
+        <div class="member_details">
+          <%# if member.user.photo.attached? %>
+          <%#= cl_image_tag member.user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+          <%# else %>
+          <%#= image_tag "placeholder.png", class: "avatar" %>
+          <%# end %>
+          <div id="members">
+            <h5><%= member.user.first_name %></h5>
+            <div class="payout_info">
+              <% if @last_payout[member.id] %>
+                <p>Last Payout Date: <%= @last_payout[member.id][:date] %></p>
+                <div class="payout-amount">
+                  <p>Last Payout Amount: <%= @last_payout[member.id][:amount] %></p> </div>
+              <% else %>
+                <p>No Payouts yet.</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module StokvelsHelper
+end

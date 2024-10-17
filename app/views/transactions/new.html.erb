@@ -1,0 +1,14 @@
+<%= form_with model: [@member, @transaction], local: true do |form| %>
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= form.label :transaction_type %>
+    <%= form.select :transaction_type, options_for_select(Transaction.transaction_types.keys.map { |type| [type.humanize, type] }) %>
+  </div>
+  <%= form.hidden_field :member_id, value: @member.id %>
+  <div class="actions">
+    <%= form.submit "Create Transaction" %>
+  </div>
+<% end %>

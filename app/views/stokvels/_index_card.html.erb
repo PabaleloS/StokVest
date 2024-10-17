@@ -1,0 +1,66 @@
+<br>
+<% invitation_found = false %>
+<% if @pending_stokvels.any? || @accepted_stokvels.any? %>
+  <!-- Check for both pending and accepted invitations -->
+  <div class="stokvel-list">
+    <h3>Your invitation list</h3>
+    <!-- Render pending and accepted stokvels -->
+  </div>
+<% else %>
+  <p>No pending or accepted stokvels.</p>
+<% end %>
+<!---->
+<% if @pending_stokvels.any? %>
+  <% @pending_stokvels.each do |stokvel| %>
+    <div class="invitation_card">
+      <div id="invite_group_banner">
+        <div id="stokvel_title">
+          <h6><%= link_to stokvel.name, stokvel_path(stokvel) %></h6>
+          <p><%= stokvel.members.count %> members joined</p>
+        </div>
+        <%= button_to "Decline", decline_invite_path(stokvel), class: "btn btn-light" %>
+        <%= button_to "Join", accept_invite_path(stokvel), class: "btn btn-light" %>
+      </div>
+      <div id="invite_details">
+        <!--<div class="avatar_i">-->
+          <%# if @user.photo.attached? %>
+            <%#= cl_image_tag @user.photo.key, height: 44, width: 53, crop: :fill, class: "styled-image" %>
+          <%# else %>
+            <%#= image_tag "placeholder.png", class: "styled-image" %>
+          <%# end %>
+<!--          <p> <%# stokvel.user.first_name %> Invited You to this stokvel</p>
+        </div>-->
+      </div>
+    </div>
+    <!-- No stokvel invitations -->
+  <% end %>
+<% else %>
+  <!-- <h2> No stokvel invitiations </h2>-->
+  <!-- <p>No stokvel available.</p> -->
+<% end %>
+<% if @accepted_stokvels.any? %>
+  <% @accepted_stokvels.each do |stokvel| %>
+    <!--<div class="invitation_card">-->
+      <div id="invite_group_banner">
+        <div id="stokvel_title">
+          <h6><%= link_to stokvel.name, stokvel_path(stokvel) %></h6>
+          <p><%= stokvel.members.count %> members joined </p>
+        </div>
+      </div>
+      <div id="invite_details">
+        <!--<div class="avatar_i">-->
+          <%# if current_user.photo.attached? %>
+            <%#= cl_image_tag current_user.photo.key, height: 44, width: 53, crop: :fill, class: "styled-image" %>
+          <%# else %>
+            <%#= image_tag "placeholder.png", class: "styled-image" %>
+          <%# end %>
+<!--          <p> And you are part of this stokvel</p>
+        </div>-->
+        <%= link_to "Open", stokvel_path(stokvel), class: "btn btn-light" %>
+        <%#= button_to "enter", stokvel_path(stokvel), class: "btn btn-light" %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <!-- <p>No stokvels available.</p> -->
+<% end %>

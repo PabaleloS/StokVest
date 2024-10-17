@@ -1,0 +1,36 @@
+<br>
+<div>
+  <div class="add-members-list-container" data-search-users-target="users_list">
+    <%= form_with url: create_members_path(@stokvel) do |f| %>
+      <% users.each do |user| %>
+        <div id="user_list_card">
+          <div id="members_body">
+            <div class="member_details">
+              <%# if user.photo.attached? %>
+                <%#= cl_image_tag user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+              <%# else %>
+                <%#= image_tag "placeholder.png", class: "styled-image" %>
+              <%# end %>
+              <div id="members_user_text">
+                <h5><%= user.first_name %> <%= user.last_name %>  </h5>
+                <div>
+                  <p><%= user.email %> </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.check_box :member_ids, {multiple: true, class: "hide-checkbox" }, user.id, nil %>
+              <!--<div class="plus_button">-->
+              <%= f.label "member_ids_#{user.id}", "+" %>
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+        <br>
+      <% end %>
+      <div id="next_button" style="text_align: center">
+        <p class="white-text"><%= f.submit "Add Members" %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

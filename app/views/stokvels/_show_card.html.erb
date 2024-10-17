@@ -1,0 +1,75 @@
+<!--<div class= "container">
+</div>
+<div class="bg-gray-100 p-4 max-w-md mx-auto">
+  <div class="bg-blue-600 text-white rounded-lg overflow-hidden">
+    <div class="flex justify-between items-center p-4">
+      <h2 class="text-xl font-bold">Stokvest</h2>
+      <span class="text-xs"></span>
+    </div>
+
+    <div class="p-4">
+      <div class="bg-white text-black rounded-lg p-3 mb-3">
+        <div class="flex justify-between items-center">
+          <span><%#= @stokvel.name %></span>
+          <%#= link_to "Invite", new_stokvel_member_path(@stokvel), class: "bg-blue-500 text-white px-3 py-1 rounded-md text-sm" %>-->
+<!--        </div>
+        <div class="mt-2">
+          <span class="text-gray-600">Balance</span>
+          <div class="flex items-center">
+            <span class="text-xl font-bold mr-2" id="balance">
+              R <%#= number_with_precision(@stokvel.balance, precision: 2) %>
+            </span>
+            <button onclick="toggleBalance()" id="toggle-balance">👁️</button>
+          </div>
+        </div>
+        <div class="flex justify-between mt-3">
+          <%#= button_to "Withdraw", stokvel_payouts_path(@stokvel), method: :post, class: "bg-gray-200 px-4 py-2 rounded-md text-sm" %>-->
+          <%#= link_to "Top-Up", new_stokvel_contribution_path(@stokvel), class: "bg-gray-200 px-4 py-2 rounded-md text-sm" %>
+<!--        </div>
+      </div>
+
+      <div class="bg-white text-black rounded-lg p-3 mb-3">
+        <h3 class="font-semibold mb-2">Next Withdrawals</h3>
+        <%# @stokvel.users.first(3).each do |user| %>-->
+<!--          <div class="flex items-center mb-2">-->
+            <%= image_tag user.avatar.attached? ? user.avatar : 'default_avatar.png', class: "w-8 h-8 rounded-full mr-2" %>
+<!--            <span><%#= user.first_name %></span>
+          </div>
+        <%# end %>-->
+<!--      </div>
+
+      <div class="bg-white text-black rounded-lg p-3">
+        <h3 class="font-semibold mb-2">Next Contribution Date:</h3>
+        <p class="text-lg"><%#= @stokvel.next_contribution_date.strftime('%d/%m/%Y') %></p>
+        <%#= link_to "View Contributions", stokvel_contributions_path(@stokvel), class: "block w-full text-center bg-gray-200 mt-2 py-2 rounded-md text-sm" %>-->
+<!--      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-between mt-4">
+    <%#= link_to root_path do %>-->
+<!--      <i class="fas fa-home text-gray-500"></i>-->
+    <%# end %>
+    <%= link_to profile_path do %>
+      <i class="fas fa-user text-gray-500"></i>
+    <% end %>
+    <%= link_to messages_path do %>
+      <i class="fas fa-comment text-gray-500"></i>
+    <% end %>
+<!--  </div>
+</div>
+
+<script>
+function toggleBalance() {
+  const balanceElement = document.getElementById('balance');
+  const toggleButton = document.getElementById('toggle-balance');
+  if (balanceElement.textContent.includes('•')) {
+    balanceElement.textContent = 'R <%#= number_with_precision(@stokvel.balance, precision: 2) %>';
+    toggleButton.textContent = '👁️';
+  } else {
+    balanceElement.textContent = 'R •••••';
+    toggleButton.textContent = '🙈';
+  }
+}
+</script>
+-->
