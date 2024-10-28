@@ -45,6 +45,16 @@ gem "activestorage", "= 7.1.4"
 
 gem 'sassc-rails'
 
+gem 'simple_form'
+
+# gem 'cloudinary'
+
+# gem 'carrierwave'
+
+# gem 'paystack', '~> 0.1.10'
+
+gem 'paystack'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

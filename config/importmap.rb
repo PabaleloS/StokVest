@@ -8,9 +8,12 @@
 
 pin "application", preload: true
 pin "@hotwired/turbo-rails", to: "https://cdn.skypack.dev/@hotwired/turbo-rails"
-pin "@hotwired/stimulus", to: "https://cdn.skypack.dev/@hotwired/stimulus"
+# pin "@hotwired/stimulus", to: "https://cdn.skypack.dev/@hotwired/stimulus"
 pin "@hotwired/stimulus-loading", to: "https://cdn.skypack.dev/@hotwired/stimulus-loading"
 pin "bootstrap", to: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js", preload: true
 pin "@rails/actioncable", to: "https://cdn.skypack.dev/@rails/actioncable", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "@hotwired/stimulus", to: "stimulus.min.js"
+pin "controllers", to: "controllers.js"
+# pin "sweetalert2", to: "https://ga.jspm.io/npm:sweetalert2@11.7.2/dist/sweetalert2.all.js"

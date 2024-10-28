@@ -1,5 +1,7 @@
 class StokvelsController  < ApplicationController
   before_action :authenticate_user!
+  before_action :set_stokvel, only: [:show, :destroy]
+
 
   def index
     @user = current_user
@@ -26,6 +28,14 @@ class StokvelsController  < ApplicationController
     @declined_stokvel = Stokvel.joins(:members).where(members: { user_id: current_user, status: 'declined' })
     @declined_stokvels ||= []
   end
+
+  # def index
+  #   @user = current_user
+  #   @stokvels = @user.stokvels
+  #   @pending_stokvels = Stokvel.joins(:members).where(members: { user_id: current_user, status: 'pending' })
+  #   @accepted_stokvels = Stokvel.joins(:members).where(members: { user_id: current_user, status: 'accepted' })
+  #   @declined_stokvels = Stokvel.joins(:members).where(members: { user_id: current_user, status: 'declined' })
+  # end
 
   def show
     @stokvel = Stokvel.find(params[:id])
@@ -72,10 +82,18 @@ class StokvelsController  < ApplicationController
   #   end
   # end
 
+  def destroy
+    @stokvel = Stokvel.find(params[:id]) # Find the stokvel by ID
+    @stokvel.destroy # Delete the stokvel from the database
+    redirect_to stokvels_path, notice: 'Group was successfully deleted.' # Redirect after deletion
+  rescue ActiveRecord::RecordNotFound
+    redirect_to stokvels_path, alert: 'Group not found.' # Handle the case where the record does not exist
+  end
   def next_contribution_date
     if contribution_frequency == 'monthly'
       created_at + 1.month
     else
+
       # Handle other frequencies if needed
     end
   end
@@ -95,5 +113,9 @@ class StokvelsController  < ApplicationController
 
   def stokvel_params
     params.require(:stokvel).permit(:name, :description, :contribution_amount, :contribution_frequency)
+  end
+
+  def set_stokvel
+    @stokvel = Stokvel.find(params[:id]) if params[:id]
   end
 end

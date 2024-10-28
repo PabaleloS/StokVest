@@ -1,0 +1,61 @@
+<div class="container">
+    <br>
+    <div class="container"
+        data-controller="stokvel-subscription"
+        data-stokvel-subscription-stokvel-id-value="<%= @stokvel.id %>"
+        data-stokvel-subscription-current-user-id-value="<%= current_user.id %>"
+    >
+        <div id="message_header">
+            <a href="#" onclick="history.back(); return false;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAZ0lEQVR4nO2WMQqAQAwE5xMR/f9LrETRxit8jsdJbKwsNIK306UaWJYlIMR9GmABeoKlCdiBMUpqwOrSDWglfRLF+ypWTXsLs0uTjwW/F9sl6k7yCEyxo8J99PpMkeJTXhZuOC5RPRnBEDtxjsnsowAAAABJRU5ErkJggg==">
+            </a>
+            <div id="img-online">
+                <div id="header_text">
+                    <h4 style="font-size: 14px; font-weight: bold;"><%= @stokvel.name %></h4>
+                    <div id="online">
+                        <img width="10" height="10" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABSElEQVR4nO2WzU4CQQzH5yVMBHaKD2OkVfQ9dOVhvPnByaN35cy2Gt8A9S3W9YZGU1wTQJn9YEY48E+azGXz2/477dSYjdZNzeGeBaZTEBxYphEIvWl8n3EATHHrESNvwOjhoAVCFyA0BqFPZzB+gNDNzv1+eymolc6RZXwtBM6FfmMZD2tBQbCXZ1AJOps99ipB20wEgu+1oVNwda0UVGtax16n7bLbLARbob4v6BT8srhlfFj8O8bOVptcKP/QvN4UO2zGu1Bgy3TryvglIPjJAaYsmNVC2WKrPbbRHxmnLqufA4JHa3i5mOJgYMHjhWBt8pUMEJVlvAoAPjdF0oHu95GgFIadhvn3Z7HqQgCrWAR+pH9bb/WhFBLqmmW0neCWZToru+xZwevSNS2jSasxxTpk8vVW53qmZx0OUYInXtfbjYwnfQE8tfSj5ibbywAAAABJRU5ErkJggg==">
+                        <h6 style="font-size: 12px;"> online</h6>
+                    </div>
+                </div>
+            </div>
+            <img width="15" height="15" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAU0lEQVR4nO3SMQqAMAxA0T/16tZ7mnoMRegkHTpoUPgPsjR/CgVJ0p8UYAUaEEDtb293XIvjNjWhow3CPaEjBuGW0DE6zZLQUXocE5/myU6S9FEnlhRSWlasNbcAAAAASUVORK5CYII=">
+        </div>
+        <div class="messages-container" data-stokvel-subscription-target="messages">
+            <% @stokvel.messages.each do |message| %>
+                <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+                    <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
+                        <%= render "messages/message", message: message %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <div class="form-container">
+            <%= simple_form_for [@stokvel, @message],
+    html: { id: "messageForm", data: { action: "turbo:submit-end->stokvel-subscription#resetForm" }, class: "d-flex" } do |f| %>
+            <div id="form2">
+                <%= f.input :content,
+                    label: false,
+                    wrapper_html: { class: 'no-default-style', id: 'messageInput' },
+                    placeholder: " Say something...."
+                %>
+                <button type="submit" class="send-button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <% end %>
+            <br>
+            <br>
+        </div>
+        <br>
+        <br>
+        <br>
+        <b>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+<br>
+
+</div>

@@ -1,257 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stokvest Dashboard</title>
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f1f5f8;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-        .parent_container {
-            <!--display: flex;
-            flex-direction: column;
-            min-height: 100vh;-->
-            background-color: #f1f5f8;
-        }
+      body {
+        font-family: 'Montserrat', sans-serif;
+          background-color: #fff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+      }
 
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 900px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+      .back_container {
+          background-color: #fff;
+          margin: 0px;
+          padding: 10px;
+          border-radius: 10px;
+      }
 
-        .header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            background-color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .container {
+          background-color: #242C3B;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px auto;
+          max-width: 900px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0ea5e9;
-            text-shadow: 0 0 5px #0ea5e9;
-            text-align: center;  /* Center the logo horizontally */
-        }
+      .header {
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #242C3B;
+      }
 
-        .logo img {
-            height: 40px;
-            margin: 0 auto;  /* Center the logo vertically */
-        }
+      .logo {
+        display: flex;
+          justify-content: space-between;
+          font-size: 24px;
+          font-weight: bold;
+      }
 
-        .profile {
-            position: absolute;  /* Move profile to absolute positioning */
-            top: 10px;  /* Adjust top position as needed */
-            right: 20px;  /* Adjust right position as needed */
-            display: flex;
-            align-items: center;
-        }
+      h1 {
+        color: #0ea5e9;
+        text-align: center;
+        font-size: 60px;
+      }
 
-        .profile-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: #0ea5e9;
-            border-radius: 50%;
-        }
+      .section {
+          margin-top: 80px;  /* Adjust margin to account for header height */
+          padding: 20px;
+          border-radius: 8px;
+          background-color: #dedede
+      }
 
-        .profile-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
+      .section-title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+      }
 
-        .section {
-            margin-top: 80px;  /* Adjust margin to account for header height */
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f1f5f8;
-        }
+      .section-content {
+          background-color: #fff;
+          padding: 15px;
+          border-radius: 8px;
+      }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+      .balance {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 10px;
+      }
 
-        .section-content {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-        }
+      .balance-amount {
+          font-size: 36px;
+          font-weight: bold;
+          color: #0ea5e9;
+      }
 
-        .balance {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+      .actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+      }
 
-        .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            color: #0ea5e9;
-        }
+      .action-button {
+          background-color: #0ea5e9;
+          color: #fff;
+          padding: 10px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          display: inline-block;
+          margin: 5px;
+          text-decoration: none;
+      }
 
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .action-button {
-            background-color: #0ea5e9;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: inline-block;
-            margin: 5px;
-        }
-
-        .action-button:hover {
-            background-color: #0a85e9;
-        }
-
-        .next-withdrawals {
-            margin-top: 20px;
-        }
-
-        .next-withdrawal {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .next-withdrawal-avatar {
-            width: 30px;
-            height: 30px;
-            background-color: #0ea5e9;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .next-withdrawal-name {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .next-contribution-date {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .view-contributions {
-            background-color: #0ea5e9;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .view-contributions:hover {
-            background-color: #0a85e9;
-        }
-
-        /* Footer styles */
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* Navbar styles */
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1;
-        }
-
-        .navbar-item {
-            margin: 0 10px;
-        }
-
-        .navbar-link {
-            color: #fff;
-            text-decoration: none;
-        }
+      .action-button:hover {
+          background-color: #0a85e9;
+      }
     </style>
-</head>
-<body>
-  <div class="parent_container">
-
-    <div class="container">
-        <div class="header">
+  </head>
+  <body>
+    <div class="parent_container">
+      <br>
+      <div class="container">
+        <br>
+        <div class="back_container">
+          <div class="header">
             <div class="logo">
-                <img src="/path/to/your/logo.png" alt="StokVest Logo">
+              <%= image_tag "logo.png", alt: "Stokvel Logo" %>
             </div>
-        </div>
-        <div class="profile">
-            <div class="profile-avatar"></div>
-            <span class="profile-name"><%=@user.first_name%></span>
-        </div>
-        <div class="section">
-            <h2 class="section-title">Stokvel Details</h2>
+          </div>
+          <div class="section">
+            <h3>Welcome  <%= @user.first_name %> </h3>
+            <h1 class="section-title"><%= @stokvel.name %></h1>
             <div class="section-content">
-                <p>Stokvel Name: <%= @stokvel.name %></p>
-                <%= link_to "Invite", new_stokvel_member_path(@stokvel), class: "action-button" %>
+              <p>Would you like to add a member to <%= @stokvel.name %>?</p>
+              <%= link_to "Invite", new_stokvel_member_path(@stokvel), class: "action-button" %>
             </div>
-        </div>
-        <div class="section">
+          </div>
+          <div class="section">
             <h2 class="section-title">Balance</h2>
             <div class="section-content">
-                <p class="balance">Balance: R <%= number_with_precision(@stokvel.balance, precision: 2) %></p>
-                <div class="actions">
-                    <%= link_to "Payout", stokvel_payouts_path(@stokvel), class: "action-button" %>
-                    <%= link_to "Top-Up", new_stokvel_contribution_path(@stokvel), class: "action-button" %>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2 class="section-title">Next Withdrawals</h2>
-            <div class="section-content">
-                <% @stokvel.users.first(3).each do |user| %>
-                    <div class="next-withdrawal">
-                        <div class="next-withdrawal-avatar"></div>
-                        <span class="next-withdrawal-name"><%= user.first_name %></span>
-                    </div>
+              <p class="balance">Balance: R <%= number_with_precision(@stokvel.balance, precision: 2) %></p>
+              <div class="actions">
+                <% if @stokvel.user_id == current_user.id %> <!-- Check if the current user is the owner -->
+                  <%= link_to "Payout", stokvel_payouts_path(@stokvel), class: "action-button" %>
                 <% end %>
+                <%= link_to "Top-Up", new_stokvel_contribution_path(@stokvel), class: "action-button" %>
+              </div>
             </div>
-        </div>
-        <div class="section">
-            <h2 class="section-title">Next Contribution Date</h2>
+          </div>
+          <div class="section">
+            <h2 class="section-title">Next Payout</h2>
             <div class="section-content">
-                <p class="next-contribution-date">Next Contribution Date: <%= @stokvel.next_contribution_date.strftime('%d/%m/%Y') %></p>
-                <%= link_to "View Contributions", stokvel_contributions_path(@stokvel), class: "action-button" %>
+              <% @stokvel.members.first(3).each do |member| %>
+                <div class="member-info">
+                  <span class="next-withdrawal-name"><%= member.user.first_name %></span>
+                  <br>
+                  <!-- <span class="next-withdrawal-date">
+                    Next Withdrawal: <%#= member.next_withdrawal_date.strftime('%d/%m/%Y') if member.next_withdrawal_date %>
+                  </span>-->
+                </div>
+              <% end %>
+              <br>
             </div>
+            <br>
+          </div>
         </div>
+        <br>
+        <div class="section">
+          <h2 class="section-title">Next Contribution Date</h2>
+          <div class="section-content">
+            <p class="next-contribution-date">Next Contribution Date: <%= @stokvel.next_contribution_date.strftime('%d/%m/%Y') %></p>
+            <%= link_to "View Contributions", stokvel_contributions_path(@stokvel), class: "action-button" %>
+          </div>
         </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
+    <br>
+    <br>
+  </body>
+</html>

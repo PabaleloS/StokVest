@@ -8,5 +8,9 @@ class User < ApplicationRecord
   has_many :members, dependent: :destroy
   has_many :stokvels, through: :members
   has_many :messages
+  has_many :contributions, dependent: :destroy
+  has_many :payouts, dependent: :destroy
+  
   # has_one_attached :photo
+  validates :balance, numericality: {greater_than_or_equal_to: 0 }
 end

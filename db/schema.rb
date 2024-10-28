@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_16_120907) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_100639) do
   create_table "contributions", force: :cascade do |t|
     t.decimal "amount"
     t.integer "user_id", null: false
@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_120907) do
     t.integer "member_id"
     t.date "date"
     t.decimal "contribution_amount"
+    t.integer "status", default: 0
+    t.string "payment_method"
     t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
@@ -33,6 +35,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_120907) do
     t.integer "user_id"
     t.integer "stokvel_id"
     t.integer "balance"
+    t.string "first_name"
+    t.date "next_withdrawal_date"
+    t.datetime "last_payout_date"
+    t.decimal "last_payout_amount"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "stokvel_id", null: false
+    t.integer "member_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_messages_on_member_id"
+    t.index ["stokvel_id"], name: "index_messages_on_stokvel_id"
   end
 
   create_table "payouts", force: :cascade do |t|
@@ -41,6 +57,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_120907) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stokvel_id"
+    t.integer "member_id", null: false
+    t.date "date"
+    t.index ["member_id"], name: "index_payouts_on_member_id"
     t.index ["stokvel_id"], name: "index_payouts_on_stokvel_id"
     t.index ["user_id"], name: "index_payouts_on_user_id"
   end
@@ -77,12 +96,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_120907) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
-    t.integer "balance"
+    t.decimal "balance", precision: 10, scale: 2, default: "0.0"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "contributions", "users"
+  add_foreign_key "messages", "members"
+  add_foreign_key "messages", "stokvels"
+  add_foreign_key "payouts", "members"
   add_foreign_key "payouts", "stokvels"
   add_foreign_key "payouts", "users"
   add_foreign_key "transactions", "members"

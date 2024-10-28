@@ -1,0 +1,10 @@
+.alert {
+  position: fixed;
+  z-index: 2000;
+  background-color: orange;
+  top: 60px;
+  right: 30px;
+  border-radius: 8px;
+  opacity: 0;
+  animation: appear-then-fade 4s ease-in-out;
+}

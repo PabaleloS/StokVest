@@ -4,6 +4,7 @@ class Stokvel < ApplicationRecord
   has_many :users, through: :members
   has_many :contributions, dependent: :destroy
   has_many :payouts, dependent: :destroy
+  has_many :messages
   # has_many :transactions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true

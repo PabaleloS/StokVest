@@ -1,0 +1,24 @@
+<div id="message-<%#= message.id %>">
+  <div class="mb-1 mt-2">
+    <div id="message-<%= message.id %>">
+      <div id="chatlive">
+        <div id="message_img">
+          <%# if current_user.photo.attached? %>
+          <%#= cl_image_tag current_user.photo.key, class: "styled-imagez" %>
+          <%# else %>
+          <%#= image_tag "placeholder.png", class: "styled-imagez" %>
+          <%# end %>
+        </div>
+        <div id="message_info">
+          <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+            <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
+              <h6 style="font-size: 12px; margin-right: 5px;"><%= message.member.user.first_name %></h6>
+              <h4 style="font-size: 14px;"><%= message.content %></h4>
+              <small style="font-size: 10px; margin-right: 5px;"><i><%= message.created_at.strftime("%l:%M %p") %></i></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

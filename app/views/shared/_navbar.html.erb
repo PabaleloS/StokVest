@@ -1,23 +1,39 @@
-<div class="fixed-bottom">
-  <div class="font-links">
-    <% if defined?(@stokvel) && @stokvel.present? && @stokvel.id.present? %>
-      <% if current_page?(stokvel_path(@stokvel)) %>
-        <%= link_to root_path, class: "link" do %>
-          <i class="fa-solid fa-house-user fa-lg"></i>
+<nav class="navbar navbar-light bg-light fixed-bottom">
+  <div class="container">
+    <ul class="navbar-nav w-100 justify-content-around">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= root_path %>">
+          <i class="fas fa-home"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= transactions_path %>">
+          <i class="fas fa-wallet"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <% if @stokvel && @stokvel.persisted? %>
+          <a class="nav-link" href="<%= stokvel_path(@stokvel) %>">
+            <i class="fas fa-users"></i>
+          </a>
+        <% else %>
+          <span class="nav-link disabled">
+            <i class="fas fa-users"></i>
+          </span>
         <% end %>
-      <% else %>
-        <%= link_to stokvel_path(@stokvel), class: "link" do %>
-          <i class="fa-solid fa-house-user fa-lg"></i>
-        <% end %>
+      </li>
+      <% if @stokvel.present? && @stokvel.persisted? %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= stokvel_members_path(@stokvel) %>">
+            <i class="fas fa-list"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= stokvel_messages_path(@stokvel) %>">
+            <i class="fas fa-comments"></i>
+          </a>
+        </li>
       <% end %>
-
-      <%= link_to stokvel_members_path(@stokvel), class: "link" do %>
-        <i class="fa-solid fa-list fa-lg"></i>
-      <% end %>
-    <% else %>
-      <%= link_to root_path, class: "link" do %>
-        <i class="fa-solid fa-house-user fa-lg"></i>
-      <% end %>
-    <% end %>
+    </ul>
   </div>
-</div>
+</nav>

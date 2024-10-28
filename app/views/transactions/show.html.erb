@@ -1,0 +1,8 @@
+<h1>Contribution Details</h1>
+<p>Stokvel: <%= @contribution.stokvel.name %></p>
+<p>Amount: <%= @contribution.amount %></p>
+<p>Date: <%= @contribution.created_at.strftime("%B %d, %Y") %></p>
+<p>Description: <%= @contribution.description %></p>
+<%= link_to 'Back to Transactions', transactions_path %>
+
+
