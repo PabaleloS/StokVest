@@ -1,36 +1,110 @@
-<br>
-<div>
-  <div class="add-members-list-container" data-search-users-target="users_list">
-    <%= form_with url: create_members_path(@stokvel) do |f| %>
-      <% users.each do |user| %>
-        <div id="user_list_card">
-          <div id="members_body">
-            <div class="member_details">
-              <%# if user.photo.attached? %>
-                <%#= cl_image_tag user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
-              <%# else %>
-                <%#= image_tag "placeholder.png", class: "styled-image" %>
-              <%# end %>
-              <div id="members_user_text">
-                <h5><%= user.first_name %> <%= user.last_name %>  </h5>
-                <div>
-                  <p><%= user.email %> </p>
-                </div>
-              </div>
+<style>
+  .add-members-list-container {
+      background-color: #242C3B; /* Match the container background */
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-list-card {
+      background-color: #fff; /* White background for user cards */
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .members-body {
+      display: flex;
+      justify-content: space-between; /* Space between elements */
+      align-items: center; /* Center items vertically */
+  }
+
+  .checkbox-container {
+      display: flex;
+      align-items: center; /* Center checkbox and label vertically */
+  }
+
+  .checkbox-container input[type="checkbox"] {
+      margin-left: 10px; /* Space between checkbox and label */
+  }
+
+  .member-details {
+      display: flex;
+      align-items: center;
+  }
+
+  .members-user-text {
+      margin-left: 10px; /* Space between avatar and text */
+  }
+
+  .hide-checkbox {
+      display: none; /* Hide the default checkbox */
+  }
+
+  .next-button {
+      margin-top: 20px; /* Space above the button */
+  }
+
+  .white-text {
+      color: #fff; /* White text for the button */
+
+      .form-group {
+      display: flex;
+      align-items: center;
+  }
+
+  .form-group input[type="checkbox"] {
+      display: none; /* Hide the default checkbox */
+  }
+
+  .form-group label {
+      cursor: pointer; /* Change cursor to pointer */
+      padding: 5px;
+      border: 1px solid #ccc; /* Add border to label */
+      border-radius: 5px; /* Rounded corners */
+      background-color: #f0f0f0; /* Light background */
+  }
+
+  .form-group input[type="checkbox"]:checked + label {
+      background-color: #0ea5e9; /* Change background when checked */
+      color: #fff; /* Change text color when checked */
+  }
+  }
+</style>
+<div class="add-members-list-container" data-search-users-target="users_list">
+  <h2 class="section-title">Add Members</h2>
+  <%= form_with url: create_members_path(@stokvel) do |f| %>
+    <% users.each do |user| %>
+      <div class="user-list-card">
+        <div class="members-body">
+          <div class="member-details">
+            <%# if user.photo.attached? %>
+            <%#= cl_image_tag user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+            <%# else %>
+            <%#= image_tag "placeholder.png", class: "styled-image" %>
+            <%# end %>
+            <div class="members-user-text">
+              <h5><%= user.first_name %> <%= user.last_name %></h5>
+              <p><%= user.email %></p>
             </div>
-            <div class="form-group">
-              <%= f.check_box :member_ids, {multiple: true, class: "hide-checkbox" }, user.id, nil %>
-              <!--<div class="plus_button">-->
+          </div>
+          <div class="form-group">
+            <div class="checkbox-container">
+              <%= f.check_box :member_ids, {multiple: true}, user.id, nil %>
               <%= f.label "member_ids_#{user.id}", "+" %>
-              <!--</div>-->
             </div>
           </div>
         </div>
-        <br>
-      <% end %>
-      <div id="next_button" style="text_align: center">
-        <p class="white-text"><%= f.submit "Add Members" %></p>
       </div>
+      <br>
     <% end %>
-  </div>
+    <div class="next-button" style="text-align: center;">
+      <p class="white-text"><%= f.submit "Add Members", class: "action-button" %></p>
+    </div>
+  <% end %>
 </div>

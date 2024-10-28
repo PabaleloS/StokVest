@@ -1,25 +1,29 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :set_stokvel
+  before_action :set_member, only: [:destroy]
   def index
-    @stokvel = Stokvel.find(params[:stokvel_id])
-    # Retrieves members specific to the Stokvel group being viewed
-    # @members = @stokvel.members
-    @members = @stokvel.members.includes(:contribution).order('contributions.created_at DESC NULLS LAST')
+    # Check if the request came from the stokvel show page
+    if request.referer != stokvel_url(@stokvel)
+      redirect_to stokvel_url(@stokvel), alert: "You can only view members from the stokvel show page."
+    else
+      # Retrieves members specific to the Stokvel group being viewed
+      @members = @stokvel.members.includes(:contributions).order('contributions.created_at DESC')
 
-    # Fetch the last contribution date and amount for each member
-    @last_contributions = {}
-    @members.each do |member|
-      last_contributions = member.deposits.last
-      @last_contributions[member.id] = last_contribution ? { date: last_contribution.created_at.to_date, contribution_amount: last_contribution.contribution_amount } : nil
+      # Fetch the last contribution date and amount for each member
+      @last_contributions = {}
+      @members.each do |member|
+        last_contribution = member.contributions.last
+        @last_contributions[member.id] = last_contribution ? { date: last_contribution.created_at.to_date, contribution_amount: last_contribution.contribution_amount } : nil
+      end
     end
   end
 
-  # show details of a specific member of a stokvel group
+  # show details of a  member of a specific stokvel group
   def show
-  @susu = Susu.find(params[:id])
-  # find the member of the stokvel group
-  @member = @susu.members.find(params[:id])
+    @stokvel = Stokvel.find(params[:stokvel_id])
+    @member = @stokvel.members.find(params[:id])
+    @users_not_in_stokvel = User.where.not(id: @stokvel.members.pluck(:user_id))  # Get users not in the stokvel
   end
 
   def new
@@ -29,7 +33,6 @@ class MembersController < ApplicationController
 
   def create
     @stokvel = Stokvel.find(params[:stokvel_id])
-    # Instance of a new Member object with parameters from the form, setting susu and user associations
     @member = @stokvel.members.new(member_params)
     @member.user = current_user
     if @member.save
@@ -90,7 +93,40 @@ class MembersController < ApplicationController
     end
   end
 
+  def destroy
+    @stokvel = Stokvel.find(params[:stokvel_id])
+    @member = @stokvel.members.find(params[:id])
+
+    if @member.destroy
+      respond_to do |format|
+        format.html { redirect_to stokvel_path(@stokvel), notice: 'Member was successfully deleted.' }
+        format.js   # This will look for a destroy.js.erb file
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to stokvel_path(@stokvel), alert: 'Failed to delete member.' }
+        format.js   # This will look for a destroy.js.erb file
+      end
+    end
+  end
+
+  # def destroy
+  #   @member.destroy
+  #   redirect_to stokvel_members_path(@stokvel), notice: 'Member was successfully removed.'
+  # end
+
   private
+  def set_stokvel
+    @stokvel = Stokvel.find_by(id: params[:stokvel_id]) # Use find_by to avoid exceptions
+    unless @stokvel
+      redirect_to stokvels_path, alert: "Stokvel not found." # Redirect if not found
+    end
+  end
+
+  def set_member
+    @member = @stokvel.members.find(params[:id])
+  end
+
   def member_params
     params.require(:member).permit(:user_id)
   end

@@ -1,35 +1,166 @@
-<!-- app/views/contributions/show.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StokVest - Payment Confirmation</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-<div class="bg-blue-900 min-h-screen p-4">
-  <h1 class="text-white text-2xl font-bold mb-4">StokVest</h1>
+      body {
+          font-family: 'Montserrat', sans-serif;
+          background-color: #242C3B;
+          color: #fff;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+      }
 
-  <div class="bg-white rounded-lg p-4 mb-4">
-    <h2 class="text-xl font-semibold mb-2">Payment Confirmation</h2>
-    <p class="text-green-600">Your payment was successful</p>
-  </div>
+      .parent-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          padding: 20px;
+          width: 100%;
+      }
 
-  <div class="bg-white rounded-lg p-4">
-    <h3 class="text-lg font-semibold mb-2">Transaction Details:</h3>
-    <p class="mb-1"><span class="text-blue-500">Transaction Number:</span> <%= @contribution.transaction_number %></p>
-    <p class="mb-1"><span class="text-blue-500">Amount:</span> R <%= number_with_precision(@contribution.contribution_amount, precision: 2) %></p>
-    <p class="mb-1"><span class="text-blue-500">Date of Transaction:</span> <%= @contribution.created_at.strftime('%d/%m/%Y') %></p>
-    <p><span class="text-blue-500">Payment Made To:</span> <%= @stokvel.name %></p>
-  </div>
-</div>
+      .container {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px auto;
+          max-width: 900px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          color: #242C3B; /* Text color for the container */
+      }
 
-<nav class="fixed bottom-0 w-full bg-white">
-  <div class="flex justify-around py-2">
-    <%= link_to root_path, class: "text-blue-500" do %>
-      <i class="fas fa-home"></i>
-    <% end %>
-    <%= link_to "#", class: "text-gray-500" do %>
-      <i class="fas fa-wallet"></i>
-    <% end %>
-    <%= link_to "#", class: "text-gray-500" do %>
-      <i class="fas fa-users"></i>
-    <% end %>
-    <%= link_to "#", class: "text-gray-500" do %>
-      <i class="fas fa-comment"></i>
-    <% end %>
-  </div>
-</nav>
+      .header {
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #242C3B;
+      }
+
+      .logo {
+        display: flex;
+          justify-content: space-between;
+          font-size: 24px;
+          font-weight: bold;
+          background: #242C3B;
+
+      }
+
+      h1, h2, h3 {
+          color: #0ea5e9; /* Header color */
+      }
+
+      .success-message {
+          color: #28a745; /* Green color for success messages */
+          font-weight: bold;
+          margin-bottom: 15px;
+      }
+
+      .transaction-details {
+          margin-top: 10px;
+      }
+
+      .transaction-details p {
+          margin-bottom: 5px;
+      }
+
+      .transaction-details span {
+          color: #0ea5e9; /* Color for labels */
+      }
+
+      .back-button {
+            background-color: #0ea5e9;
+            justify-content: center;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 40px;
+            text-align: center;
+            width: 95%;
+            border: none;
+            text-decoration: none; /* Remove underline */
+            font-size: 1rem; /* Font size for button */
+            display: inline-block; /* Allow centering */
+            text-align: center
+        }
+
+        .back-button:hover {
+            background-color: #0a85e9; /* Darker shade on hover */
+        }
+
+      @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                margin: 10px; /* Reduce margin on smaller screens */
+            }
+
+            h1 {
+                font-size: 1.5rem; /* Adjust header size */
+            }
+
+            h2 {
+                font-size: 1.25rem; /* Adjust sub-header size */
+            }
+
+            h3 {
+                font-size: 1rem; /* Adjust transaction details header size */
+            }
+
+            .success-message {
+                font-size: 1rem; /* Adjust success message size */
+            }
+
+            .transaction-details p {
+                font-size: 0.9rem; /* Adjust transaction details text size */
+            }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent-container">
+      <!--<div class="container">-->
+        <!--<div class="back_container">-->
+          <div class="header">
+            <div class="logo">
+              <%= image_tag "logo.png", alt: "Stokvel Logo" %>
+            </div>
+          </div>
+          <br>
+          <br>
+
+          <!--<h1 class="text-white text-2xl font-bold mb-4">StokVest</h1>-->
+          <div class="container">
+            <h2 class="text-xl font-semibold mb-2">Payment Confirmation</h2>
+            <p class="success-message">Your payment was successful</p>
+            <div class="transaction-details">
+              <h3 class="text-lg font-semibold mb-2">Transaction Details:</h3>
+              <p><span>Transaction Number:</span> <%= @contribution.transaction_number %></p>
+              <p><span>Amount:</span> R <%= number_with_precision(@contribution.contribution_amount, precision: 2) %></p>
+              <p><span>Date of Transaction:</span> <%= @contribution.created_at.strftime('%d/%m/%Y') %></p>
+              <p><span>Payment Made To:</span> <%= @stokvel.name %></p>
+            </div>
+            <br>
+            <br>
+            <a href="<%= stokvel_path(@stokvel) %>" class="back-button">Back to <%= @stokvel.name %></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

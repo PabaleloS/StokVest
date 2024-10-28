@@ -31,3 +31,45 @@
 .search-bar {
   border: 1px solid #000;
 }
+
+.navbar {
+  background-color: #a0cdfa; /* Light background */
+}
+
+.nav-link {
+  color: #17191c; /* Text color */
+  text-align: center; /* Center the icons */
+  flex: 1; /* Allow each link to take equal space */
+}
+
+navbar-nav {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-around; /* Space items evenly */
+  padding: 0; /* Remove default padding */
+  list-style: none; /* Remove bullet points */
+}
+
+.nav-link i {
+  font-size: 24px; /* Increase icon size */
+}
+
+.navbar-nav {
+  display: flex; /* Use flexbox for alignment */
+  width: 100%; /* Full width */
+  justify-content: space-around; /* Space items evenly */
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030; /* Ensure it stays above other elements */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-link i {
+    font-size: 20px; /* Adjust icon size for smaller screens */
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stokvest Dashboard</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background-color: #242C3B;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 900px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #242C3B;
+      }
+
+      h2 {
+        color: #fff;
+
+      }
+      .transaction-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        display: flex; /* Use flexbox */
+        flex-direction: column; /* Stack children vertically */
+        align-items: center; /* Center children horizontally */
+        text-align: center; /* Center text */
+      }
+
+      .action-button {
+        background-color: #0ea5e9;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        font-size: 16px;
+        width: 50%;
+      }
+
+      .action-button:hover {
+        background-color: #0a85e9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent_container">
+      <br>
+      <div class="container">
+        <br>
+        <div class="back_container">
+          <div class="header">
+            <div class="logo">
+              <%= image_tag "logo.png", alt: "Stokvel Logo" %>
+            </div>
+          </div>
+          <div class="section">
+            <h2 class="section-title">Your Contributions</h2>
+            <div class="section-content">
+              <% @contributions.each do |contribution| %>
+                <div class="transaction-card">
+                  <h4>Contribution to <%= contribution.stokvel.name %></h4>
+                  <p>Amount: <%= number_to_currency(contribution.amount, unit: "R", format: "%u%n") %></p>
+                  <p>Date: <%= contribution.created_at.strftime("%B %d, %Y") %></p>
+                  <%= link_to "View Contribution", show_contribution_transaction_path(contribution), class: "action-button" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="section">
+            <h2 class="section-title">Your Payouts</h2>
+            <div class="section-content">
+              <% @payouts.each do |payout| %>
+                <div class="transaction-card">
+                  <h4>Payout from <%= payout.stokvel.name %></h4>
+                  <p>Amount: <%= number_to_currency(payout.amount, unit: "R", format: "%u%n") %></p>
+                  <p>Date: <%= payout.created_at.strftime("%B %d, %Y") %></p>
+                  <%= link_to "View Payout", show_payout_transaction_path(payout), class: "action-button" %>
+                </div>
+                <br>
+              <% end %>
+            </div>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      
+    </div>

@@ -1,0 +1,12 @@
+<%= @stokvel.messages.each do |message| %>
+  <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
+    <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
+      <%= render "messages/message", message: message %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="container chatroom"
+  data-controller="chatroom-subscription"
+  data-stokvel-subscription-chatroom-id-value="<%= @stokvel.id %>"
+  data-stokvel-subscription-current-user-id-value="<%= current_user.id %>">

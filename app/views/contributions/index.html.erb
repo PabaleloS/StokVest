@@ -1,97 +1,158 @@
 <head>
+  <style>
+     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-<style>
-.parent_containner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f2f2f2;
-}
+      body {
+        font-family: 'Montserrat', sans-serif;
+          background-color: #fff;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+      }
 
-.container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 800px;
-}
+      .back_container {
+          background-color: #fff;
+          margin: 0px;
+          padding: 10px;
+          border-radius: 10px;
+      }
 
-.member_card {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-}
+      .container {
+          background-color: #242C3B;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px auto;
+          max-width: 900px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-.member_details {
-  display: flex;
-  align-items: center;
-}
+.header {
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #242C3B;
+      }
 
-.members {
-  background-color: #f2f2f2;
-  padding: 10px;
-  border-radius: 5px;
-  
-}
+      .logo {
+        display: flex;
+          justify-content: space-between;
+          font-size: 24px;
+          font-weight: bold;
+          background: #242C3B;
 
-.avatar {
-  width: 44px;
-  height: 53px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
+      }
 
-.member_info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    .member_card {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.5); /* Thick light border */
+      border-radius: 8px;
+      margin-bottom: 10px; /* Space between member cards */
+      background-color: #f9f9f9; /* Light background for cards */
+    }
 
-.contribution_info {
-  margin-top: 10px;
-}
+    .member_details {
+      display: flex;
+      align-items: center;
+    }
 
-.contribution_amount {
-  font-weight: bold;
-  color: #337ab7;
-}
-</style>
+    .members {
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 5px;
+
+    }
+
+    .avatar {
+      width: 44px;
+      height: 53px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .member_info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contribution_info {
+      margin-top: 10px;
+    }
+
+    .contribution_amount {
+      font-weight: bold;
+      color: #337ab7;
+    }
+
+     /* Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .member_card {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start; /* Align items to the start */
+      }
+
+      .member_details {
+        margin-bottom: 10px; /* Space between member details */
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="parent_containner">
+    <div class="container">
+    <div class="back_container">
+    <div class="header">
+            <div class="logo">
 
-<div class="parent_containner">
-<div class="container">
-<br>
-<h4>Contribution of <%= @stokvel.name %></h4>
-<br>
-<% @members.each do |member| %>
-  <!--<div id="user_list_card">-->
-  <div id="members_body">
-    <div class="member_details">
-      <%# if member.user.photo.attached? %>
-        <%#= cl_image_tag member.user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
-      <%# else %>
-        <%#= image_tag "placeholder.png", class: "avatar" %>
-      <%# end %>
-      <div id="members">
-        <h5><%= member.user.first_name %></h5>
-        <div class="contribution_info">
-          <% if @last_contribution[member.id] %>
-            <p>Last Contribution Date: <%= @last_contribution[member.id][:date] %></p>
-            <div class="contribution_amount">
-              <p>Last Contribution Amount: <%= @last_deposits[member.id][:contribution_amount] %></p>
+              <%= image_tag "logo.png", alt: "Stokvel Logo" %>
             </div>
-          <% else %>
-            <p>No Contributions yet.</p>
-          <% end %>
+          </div>
+      <br>
+      <h4>Contribution of <%= @stokvel.name %></h4>
+      <br>
+      <% @members.each do |member| %>
+        <div id="members_body">
+        <div class="member_card">
+          <div class="member_details">
+            <%# if member.user.photo.attached? %>
+            <%#= cl_image_tag member.user.photo.key, height: 44, width: 53, crop: :fill, class: "avatar" %>
+            <%# else %>
+            <%#= image_tag "placeholder.png", class: "avatar" %>
+            <%# end %>
+            <div id="members">
+              <h5><%= member.user.first_name %></h5>
+              <div class="contribution_info">
+                <% if @last_contribution[member.id] && @last_contribution[member.id][:amount] %>
+                  <p>Last Contribution Date: <%= @last_contribution[member.id][:date] %></p>
+                  <div class="contribution_amount">
+                    <p>Last Contribution Amount: <%= @last_deposits[member.id][:contribution_amount] %></p>
+                  </div>
+                <% else %>
+                  <p>No Contributions yet.</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-<% end %>
-</div>
-</div>
+
 </body>
